@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:my_flutter_redux/api/apis.dart';
 import 'package:my_flutter_redux/app_state.dart';
 import 'package:my_flutter_redux/model/article_model.dart';
 import 'package:redux/redux.dart';
@@ -13,12 +16,15 @@ class AddArticleItemAction {
     return list;
   }
 }
-ThunkAction<AppState> waitAndDispatch(int secondsToWait) {
-  return (Store<AppState> store) async {
-    API.
-    store.dispatch(AddArticleItemAction);
-  };
-}
+
+ThunkAction<AppState> getArticleData =(Store<AppState> store) async {
+    String jsonStr = (await API.getDrawerMenu()).data;
+    var jsonData = JsonCodec().decode(jsonStr);
+    for(var i=0;i<jsonData.length;i++){
+        store.dispatch(AddArticleItemAction(item: ArticleModel.fromJson(jsonData[i])));
+    }
+};
+
 class RemoveArticleItemAction {
   ArticleModel item;
   RemoveArticleItemAction({this.item});

@@ -36,6 +36,10 @@ class _ArticlePageState extends State<ArticlePage> {
         ],
       ),
       body: StoreConnector<AppState, _ViewModel>(
+        onInit: (store){
+          if(store.state.articleListState.length == 0)
+            store.dispatch(getArticleData);
+        },
         converter: (store) => _ViewModel.create(store),
         builder: (context, viewModel) {
           return ListView.builder(

@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:my_flutter_redux/app_state.dart';
 import 'package:my_flutter_redux/model/theme_model.dart';
 import 'package:redux/redux.dart';
+import 'package:redux_thunk/redux_thunk.dart';
 
 import 'actions/theme_action.dart';
 import 'pages/articles_page.dart';
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final store =
-        Store<AppState>(appReducer, initialState: AppState.initialState());
+        Store<AppState>(appReducer, initialState: AppState.initialState(),middleware: [thunkMiddleware]);
     return StoreProvider(
       store: store,
       child: StoreBuilder<AppState>(
