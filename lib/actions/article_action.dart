@@ -1,5 +1,7 @@
+import 'package:my_flutter_redux/app_state.dart';
 import 'package:my_flutter_redux/model/article_model.dart';
 import 'package:redux/redux.dart';
+import 'package:redux_thunk/redux_thunk.dart';
 
 class AddArticleItemAction {
   ArticleModel item;
@@ -11,7 +13,12 @@ class AddArticleItemAction {
     return list;
   }
 }
-
+ThunkAction<AppState> waitAndDispatch(int secondsToWait) {
+  return (Store<AppState> store) async {
+    API.
+    store.dispatch(AddArticleItemAction);
+  };
+}
 class RemoveArticleItemAction {
   ArticleModel item;
   RemoveArticleItemAction({this.item});
